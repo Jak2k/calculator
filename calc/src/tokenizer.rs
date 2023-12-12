@@ -6,7 +6,6 @@ pub enum Token {
 
 pub fn tokenize(input: &str) -> Result<Vec<Token>, &'static str> {
     let mut tokens = Vec::new();
-    // remove " "
     let input = input.replace(" ", "");
     let mut chars = input.chars().peekable();
     while let Some(c) = chars.next() {
