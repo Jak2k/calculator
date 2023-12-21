@@ -76,10 +76,17 @@ pub fn interactive() {
             continue;
         }
 
+        let start_time = std::time::Instant::now();
         match output_interactive(&input) {
             Ok(_) => (),
             Err(e) => println!("Error: {}", e),
         }
+        let end_time = std::time::Instant::now();
+
+        let delta = end_time - start_time;
+        let delta_ms = delta.as_nanos() as f64 / 1_000_000.0;
+
+        println!("Time: {}ms", delta_ms);
     }
 }
 
