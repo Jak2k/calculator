@@ -55,38 +55,34 @@ pub fn interactive() {
     loop {
         let input = get_input();
 
-        if input.trim() == "exit" {
-            break;
+        match input.trim() {
+            "exit" => break,
+            "help" => {
+                help();
+                continue;
+            }
+            "" => continue,
+            "clear" => {
+                // clear screen
+                print!("{}[2J", 27 as char);
+                // jump to screen start
+                print!("{}[1;1H", 27 as char);
+                continue;
+            }
+            _ => {
+                let start_time = std::time::Instant::now();
+                match output_interactive(input.trim()) {
+                    Ok(_) => (),
+                    Err(e) => println!("Error: {}", e),
+                }
+                let end_time = std::time::Instant::now();
+
+                let delta = end_time - start_time;
+                let delta_ms = delta.as_nanos() as f64 / 1_000_000.0;
+
+                println!("Time: {}ms", delta_ms);
+            }
         }
-
-        if input.trim() == "help" {
-            help();
-            continue;
-        }
-
-        if input.trim() == "" {
-            continue;
-        }
-
-        if input.trim() == "clear" {
-            // clear screen
-            print!("{}[2J", 27 as char);
-            // jump to screen start
-            print!("{}[1;1H", 27 as char);
-            continue;
-        }
-
-        let start_time = std::time::Instant::now();
-        match output_interactive(&input) {
-            Ok(_) => (),
-            Err(e) => println!("Error: {}", e),
-        }
-        let end_time = std::time::Instant::now();
-
-        let delta = end_time - start_time;
-        let delta_ms = delta.as_nanos() as f64 / 1_000_000.0;
-
-        println!("Time: {}ms", delta_ms);
     }
 }
 
