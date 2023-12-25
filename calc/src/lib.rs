@@ -25,14 +25,14 @@ fn get_input() -> String {
     let _ = stdout().flush();
     stdin()
         .read_line(&mut s)
-        .expect("Did not enter a correct string");
+        .expect("Did not enter a correct string. Type 'help' to get if you need it.");
     s
 }
 
 fn welcome() {
     println!("Welcome to jCalc, a fast calculator written in rust!");
-    println!("Type 'exit' to exit.");
     println!("Type 'help' to get help.");
+    println!("Type 'exit' to exit.");
 }
 
 fn help() {
@@ -45,8 +45,9 @@ fn help() {
     println!("  Spaces are ignored.");
     println!("  Brackets will be supported in future versions.");
 
-    println!("  Type 'exit' to exit.");
+    println!("  Type 'clear' to clear the screen.");
     println!("  Type 'help' to get help.");
+    println!("  Type 'exit' to exit.");
 }
 
 pub fn interactive() {
